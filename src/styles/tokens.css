@@ -1,0 +1,122 @@
+/*
+ * HEXACHORD design tokens.
+ * Contrast ratios are measured against --c-void (#08090B), WCAG 2.x relative luminance.
+ *   --c-ink     #ECE9E2  16.43:1  body + display text          (AAA)
+ *   --c-accent  #D4FF3F  17.24:1  the one accent: signal, focus (AAA)
+ *   --c-dim     #8B9099   6.21:1  secondary labels, data        (AA, AAA large)
+ *   --c-rule    #5E636B   3.29:1  hairlines + non-text UI only  (WCAG 1.4.11 >= 3:1)
+ */
+@layer tokens {
+  @font-face {
+    font-family: 'Anybody';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    font-stretch: 50% 150%;
+    src: url('/fonts/anybody-var.woff2') format('woff2-variations');
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+      U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 800;
+    src: url('/fonts/jetbrains-mono-var.woff2') format('woff2-variations');
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+      U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  :root {
+    /* Color: one near-black, one off-white, one accent, one supporting grey. */
+    --c-void: #08090b;
+    --c-void-rgb: 8 9 11;
+    --c-ink: #ece9e2;
+    --c-ink-rgb: 236 233 226;
+    --c-accent: #d4ff3f;
+    --c-accent-rgb: 212 255 63;
+    --c-dim: #8b9099;
+    --c-rule: #5e636b;
+    --c-veil: rgb(var(--c-void-rgb) / 0.72);
+    --c-selection: var(--c-accent);
+    --c-on-selection: var(--c-void);
+
+    /* Type */
+    --f-display: 'Anybody', 'Arial Narrow', system-ui, sans-serif;
+    --f-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+    /* Fluid type scale: 1.333 (perfect fourth) at 360px -> 1.5 (perfect fifth) at 1600px.
+       Musical ratios, chosen on purpose: the scale is a chord. */
+    --t-2xs: clamp(0.625rem, 0.6rem + 0.1vw, 0.6875rem);
+    --t-xs: clamp(0.6875rem, 0.66rem + 0.12vw, 0.75rem);
+    --t-sm: clamp(0.8125rem, 0.78rem + 0.15vw, 0.9375rem);
+    --t-base: clamp(1rem, 0.95rem + 0.25vw, 1.1875rem);
+    --t-md: clamp(1.333rem, 1.2rem + 0.6vw, 1.6875rem);
+    --t-lg: clamp(1.777rem, 1.5rem + 1.3vw, 2.53rem);
+    --t-xl: clamp(2.369rem, 1.8rem + 2.7vw, 3.8rem);
+    --t-2xl: clamp(3.157rem, 2.2rem + 4.8vw, 5.7rem);
+    --t-3xl: clamp(4.209rem, 2.6rem + 8vw, 8.54rem);
+    --t-4xl: clamp(5.61rem, 2.8rem + 13vw, 12.8rem);
+
+    --lh-tight: 0.88;
+    --lh-snug: 1.15;
+    --lh-body: 1.55;
+    --tracking-label: 0.14em;
+    --tracking-display: -0.035em;
+
+    /* Space: 8pt grid. */
+    --s-0: 0;
+    --s-1: 0.25rem; /* 4, half-step for optical nudges only */
+    --s-2: 0.5rem; /* 8 */
+    --s-3: 1rem; /* 16 */
+    --s-4: 1.5rem; /* 24 */
+    --s-5: 2rem; /* 32 */
+    --s-6: 3rem; /* 48 */
+    --s-7: 4rem; /* 64 */
+    --s-8: 6rem; /* 96 */
+    --s-9: 8rem; /* 128 */
+
+    /* Layout: 12 columns, fluid gutter + margin. */
+    --cols: 12;
+    --gutter: clamp(0.5rem, 0.2rem + 1.2vw, 1.5rem);
+    --margin: clamp(1rem, 0.2rem + 3.6vw, 4rem);
+    --col-w: calc((100vw - 2 * var(--margin) - (var(--cols) - 1) * var(--gutter)) / var(--cols));
+    --hit: 44px;
+    --rule-w: 1px;
+
+    /* Motion: named durations. Entrances decelerate, exits accelerate. */
+    --d-instant: 90ms;
+    --d-fast: 180ms;
+    --d-base: 360ms;
+    --d-slow: 720ms;
+    --d-cinematic: 1440ms;
+
+    /* CSS mirrors of the CustomEase tokens in src/utils/easing.ts. */
+    --e-enter: cubic-bezier(0.16, 1, 0.3, 1);
+    --e-exit: cubic-bezier(0.7, 0, 0.84, 0);
+    --e-mutate: cubic-bezier(0.65, 0, 0.12, 1);
+    --e-magnet: cubic-bezier(0.22, 1.35, 0.36, 1);
+    --e-breath: cubic-bezier(0.45, 0, 0.55, 1);
+
+    --z-canvas: 0;
+    --z-content: 10;
+    --z-cursor-layer: 40;
+    --z-nav: 50;
+    --z-overlay: 70;
+    --z-gate: 80;
+    --z-preloader: 90;
+    --z-cursor: 100;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --d-fast: 1ms;
+      --d-base: 120ms;
+      --d-slow: 200ms;
+      --d-cinematic: 320ms;
+    }
+  }
+}

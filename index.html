@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Hexachord — an instrument in six movements</title>
+    <meta
+      name="description"
+      content="Hexachord: an audiovisual instrument in six movements. Scroll to travel through it; in the fifth, you play."
+    />
+    <meta name="theme-color" content="#08090b" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/anybody-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      document.documentElement.className = 'js is-loading';
+      // Never a blank page: if the app has not booted in 12s, fall back to the static type layout.
+      setTimeout(function () {
+        var d = document.documentElement;
+        if (!d.classList.contains('is-booted')) d.className = 'no-js no-webgl';
+      }, 12000);
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#m1">Skip to the piece</a>
+
+    <canvas class="gl" id="gl" aria-hidden="true" tabindex="-1"></canvas>
+    <div class="fallback-art" aria-hidden="true"></div>
+
+    <div
+      class="preloader"
+      id="preloader"
+      role="progressbar"
+      aria-label="Loading Hexachord"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div class="preloader__inner">
+        <p class="preloader__word u-mono" aria-hidden="true">Hexachord</p>
+        <div class="preloader__rule" aria-hidden="true">
+          <span class="preloader__fill"></span>
+          <span class="preloader__point"></span>
+        </div>
+        <ol class="preloader__ticks u-mono" aria-hidden="true">
+          <!--solmization-->
+        </ol>
+        <p class="preloader__meta u-mono" aria-hidden="true">
+          <span class="preloader__task u-dim">tuning</span>
+          <span class="preloader__count">000</span>
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="gate"
+      id="gate"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gate-title"
+      aria-describedby="gate-desc"
+      hidden
+    >
+      <div class="gate__inner">
+        <p class="gate__index u-mono u-dim" aria-hidden="true">Hexachord / 00</p>
+        <h2 class="gate__title" id="gate-title">An instrument in six movements</h2>
+        <p class="gate__desc" id="gate-desc">
+          Scroll to travel through it. In the fifth movement, you play. Headphones help.
+        </p>
+        <div class="gate__actions">
+          <button class="gate__btn gate__btn--primary" type="button" data-choice="sound" data-magnetic>
+            <span class="gate__btn-label">Enter with sound</span>
+          </button>
+          <button class="gate__btn" type="button" data-choice="silent" data-magnetic>
+            <span class="gate__btn-label">Enter silent</span>
+          </button>
+        </div>
+        <p class="gate__hint u-mono u-dim" id="gate-hint" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <header class="nav" id="nav">
+      <a class="nav__brand u-mono" href="#m1" data-magnetic
+        ><span class="nav__brand-full">Hexachord</span
+        ><span class="nav__brand-short" aria-hidden="true">Hx</span></a
+      >
+      <nav class="nav__movements" aria-label="Movements">
+        <ol class="nav__list">
+          <!--nav-items-->
+        </ol>
+        <span class="nav__marker" aria-hidden="true"></span>
+      </nav>
+      <div class="nav__tools">
+        <button
+          class="nav__btn nav__btn--sound"
+          id="btn-sound"
+          type="button"
+          aria-pressed="false"
+          data-magnetic
+        >
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="nav__btn-label u-mono">Sound off</span>
+        </button>
+        <button
+          class="nav__btn"
+          id="btn-dc"
+          type="button"
+          aria-pressed="false"
+          aria-keyshortcuts="D"
+          data-magnetic
+        >
+          <span class="nav__btn-label u-mono">Director's cut</span><kbd aria-hidden="true">D</kbd>
+        </button>
+      </div>
+      <span class="nav__progress" aria-hidden="true"></span>
+    </header>
+
+    <main class="movements" id="main">
+      <!--movements-->
+    </main>
+
+    <p class="captions u-mono" id="captions" aria-live="polite" aria-atomic="true"></p>
+    <p class="u-sr" id="announcer" aria-live="polite" aria-atomic="true"></p>
+
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <span class="cursor__ring"
+        ><svg viewBox="0 0 48 48"><circle class="cursor__hold" cx="24" cy="24" r="22" pathLength="1" /></svg
+      ></span>
+      <span class="cursor__dot"></span>
+      <span class="cursor__label u-mono"></span>
+    </div>
+
+    <div class="dc-root" id="dc-root"></div>
+
+    <noscript>
+      <p class="noscript u-mono">Hexachord is showing its quiet version. Everything is here, in type.</p>
+    </noscript>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

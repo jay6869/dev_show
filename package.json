@@ -1,0 +1,33 @@
+{
+  "name": "hexachord",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "HEXACHORD: an instrument in six movements.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && tsc -p tsconfig.node.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "three": "^0.186.1",
+    "tone": "^15.1.22"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.19.0",
+    "@types/three": "^0.186.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0",
+    "typescript-eslint": "^8.71.0",
+    "vite": "^8.3.1",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-glsl": "^1.6.1"
+  }
+}

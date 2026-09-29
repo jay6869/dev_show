@@ -1,0 +1,399 @@
+@layer layout {
+  /* ---------- Canvas + fallback ---------- */
+  .gl {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-canvas);
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    outline: none;
+  }
+
+  /* The quiet version: no WebGL, no JS, or low power. Gradients and type, never a blank page. */
+  .fallback-art {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-canvas);
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 50%, rgb(var(--c-accent-rgb) / 0.9) 0 2px, transparent 3px),
+      radial-gradient(ellipse 38% 30% at 50% 50%, rgb(var(--c-ink-rgb) / 0.09), transparent 70%),
+      radial-gradient(ellipse 70% 55% at 50% 55%, rgb(var(--c-ink-rgb) / 0.035), transparent 75%),
+      repeating-linear-gradient(90deg, rgb(var(--c-ink-rgb) / 0.035) 0 1px, transparent 1px calc(100% / 12)),
+      var(--c-void);
+  }
+  .no-js .fallback-art,
+  .no-webgl .fallback-art {
+    display: block;
+  }
+  .no-js .gl,
+  .no-webgl .gl {
+    display: none;
+  }
+
+  /* ---------- Movements ---------- */
+  .movements {
+    position: relative;
+    z-index: var(--z-content);
+  }
+
+  .movement {
+    position: relative;
+    height: 300vh;
+    height: 300svh;
+  }
+  /* One viewport taller: document scroll then maps 1:1 onto six movement units. */
+  .movement:last-child {
+    height: 400vh;
+    height: 400svh;
+  }
+
+  .movement__stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: auto 1fr auto auto;
+    column-gap: var(--gutter);
+    padding: calc(64px + var(--s-5)) var(--margin) var(--s-7);
+    overflow: clip;
+  }
+
+  .movement__index {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .movement__numeral {
+    color: var(--c-accent);
+    min-width: 3ch;
+  }
+
+  .movement__title {
+    grid-row: 3;
+    grid-column: 1 / span 9;
+    font-size: var(--t-3xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-display);
+    font-weight: 620;
+    padding-block: 0.08em 0.04em;
+    transform-origin: 0 100%;
+  }
+  .movement__title .char {
+    font-weight: calc(var(--w, 620) + var(--wp, 0));
+    font-stretch: calc(var(--wd, 100) * 1%);
+    translate: 0 calc(var(--lift, 0) * 1px);
+    will-change: transform;
+  }
+
+  .movement__line {
+    grid-row: 4;
+    grid-column: 1 / span 5;
+    margin-top: var(--s-4);
+    max-width: 32ch;
+    font-size: var(--t-md);
+    line-height: var(--lh-snug);
+    font-weight: 340;
+    font-stretch: 96%;
+    text-wrap: balance;
+    transform-origin: 0 100%;
+  }
+
+  /* I. Emergence: the particles carry the title; the DOM keeps it small, true and first. */
+  .movement--emergence .title {
+    grid-row: 2;
+    grid-column: 1 / span 6;
+    align-self: start;
+    display: grid;
+    gap: var(--s-2);
+    margin-top: var(--s-4);
+    font-size: var(--t-base);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-stretch: 130%;
+    line-height: 1;
+  }
+  .movement--emergence .title__sub {
+    letter-spacing: var(--tracking-label);
+    font-stretch: 100%;
+  }
+  .movement--emergence .movement__title {
+    font-size: var(--t-2xl);
+  }
+  .movement--emergence .movement__line {
+    grid-column: 8 / -1;
+    grid-row: 3 / span 2;
+    align-self: end;
+    justify-self: end;
+    text-align: right;
+  }
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: var(--s-4);
+    translate: -50% 0;
+    display: grid;
+    justify-items: center;
+    gap: var(--s-2);
+  }
+  .scroll-cue__rule {
+    width: 1px;
+    height: var(--s-6);
+    background: linear-gradient(to bottom, transparent, var(--c-ink));
+    transform-origin: 50% 0;
+    animation: cue 2.4s var(--e-breath) infinite;
+  }
+  @keyframes cue {
+    0% {
+      transform: scaleY(0);
+      transform-origin: 50% 0;
+    }
+    50% {
+      transform: scaleY(1);
+      transform-origin: 50% 0;
+    }
+    50.01% {
+      transform-origin: 50% 100%;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: 50% 100%;
+    }
+  }
+
+  /* II. Tension: the word is the load. Full-bleed, width axis under strain. */
+  .movement--tension .movement__title {
+    grid-row: 2;
+    align-self: center;
+    grid-column: 1 / -1;
+    font-size: var(--t-4xl);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+  }
+  .movement--tension .movement__line {
+    grid-row: 4;
+    grid-column: 1 / span 4;
+  }
+
+  /* III. Liquid: weight sinks to the bottom right, like a meniscus. */
+  .movement--liquid .movement__title {
+    grid-column: 4 / -1;
+    justify-self: end;
+    text-align: right;
+    transform-origin: 100% 100%;
+  }
+  .movement--liquid .movement__line {
+    grid-row: 2;
+    grid-column: 1 / span 4;
+    align-self: start;
+    margin-top: var(--s-5);
+  }
+
+  /* IV. Crystal: a clean left edge, and a readout of the physics on the right. */
+  .movement--crystal .movement__title {
+    grid-row: 2;
+    align-self: center;
+    grid-column: 1 / span 6;
+  }
+  .movement--crystal .movement__line {
+    grid-row: 3;
+    grid-column: 1 / span 4;
+  }
+  .readout {
+    grid-row: 3 / span 2;
+    grid-column: 9 / -1;
+    justify-self: end;
+    align-self: end;
+    display: grid;
+    gap: var(--s-2);
+    min-width: 14ch;
+  }
+  .readout div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-4);
+    border-top: var(--rule-w) solid var(--c-rule);
+    padding-top: var(--s-1);
+  }
+  .readout dt {
+    color: var(--c-dim);
+  }
+  .readout dd {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* V. Instrument: the type steps aside. The screen is the instrument. */
+  .movement--instrument .movement__title {
+    grid-row: 2;
+    grid-column: 1 / span 6;
+    align-self: start;
+    font-size: var(--t-xl);
+    margin-top: var(--s-4);
+  }
+  .movement--instrument .movement__line {
+    grid-row: 2;
+    grid-column: 1 / span 5;
+    align-self: start;
+    margin-top: calc(var(--t-xl) + var(--s-6));
+    font-size: var(--t-base);
+  }
+  .instrument-hint {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-bottom: var(--s-4);
+  }
+  .instrument-note {
+    position: absolute;
+    top: calc(64px + var(--s-5));
+    right: var(--margin);
+    font-size: var(--t-2xl);
+    letter-spacing: 0;
+    color: var(--c-accent);
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+  }
+  .keys {
+    grid-row: 4;
+    grid-column: 1 / -1;
+    position: relative;
+    height: var(--hit);
+  }
+  .keys li {
+    position: absolute;
+    top: 0;
+    left: calc(10% + var(--i, 0) * 10%);
+    translate: -50% 0;
+  }
+  .keys li:nth-child(1) {
+    --i: 0;
+  }
+  .keys li:nth-child(2) {
+    --i: 1;
+  }
+  .keys li:nth-child(3) {
+    --i: 2;
+  }
+  .keys li:nth-child(4) {
+    --i: 3;
+  }
+  .keys li:nth-child(5) {
+    --i: 4;
+  }
+  .keys li:nth-child(6) {
+    --i: 5;
+  }
+  .keys li:nth-child(7) {
+    --i: 6;
+  }
+  .keys li:nth-child(8) {
+    --i: 7;
+  }
+  .keys li:nth-child(9) {
+    --i: 8;
+  }
+  /* The keys row spans the full viewport width so each key sits under its string. */
+  .movement--instrument .keys {
+    margin-inline: calc(-1 * var(--margin));
+  }
+
+  /* VI. Afterglow: centred, small, nearly gone. */
+  .movement--afterglow .movement__stage {
+    justify-items: center;
+    text-align: center;
+  }
+  .movement--afterglow .movement__index {
+    justify-content: center;
+  }
+  .movement--afterglow .movement__title {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    font-size: var(--t-xl);
+    font-weight: 300;
+    transform-origin: 50% 100%;
+  }
+  .movement--afterglow .movement__line {
+    grid-column: 3 / span 8;
+    margin-inline: auto;
+  }
+  .last-light {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+  .afterglow-hint {
+    position: absolute;
+    bottom: var(--s-4);
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px) {
+    .movement__title {
+      grid-column: 1 / -1;
+    }
+    .movement__line,
+    .movement--tension .movement__line,
+    .movement--liquid .movement__line,
+    .movement--crystal .movement__line,
+    .movement--instrument .movement__line {
+      grid-column: 1 / -1;
+    }
+    .movement--emergence .movement__line {
+      grid-column: 1 / -1;
+      justify-self: start;
+      text-align: left;
+      grid-row: 4;
+    }
+    .movement--emergence .movement__title {
+      grid-row: 3;
+    }
+    .movement--tension .movement__title {
+      font-size: clamp(3rem, 17vw, 6rem);
+    }
+    .movement--liquid .movement__title {
+      grid-column: 1 / -1;
+    }
+    .readout {
+      grid-row: 2;
+      grid-column: 7 / -1;
+      align-self: start;
+      margin-top: var(--s-4);
+    }
+    .instrument-note {
+      font-size: var(--t-xl);
+    }
+    .movement--instrument .movement__title {
+      grid-column: 1 / -1;
+      font-size: var(--t-lg);
+    }
+    .movement--instrument .movement__line {
+      margin-top: calc(var(--t-lg) + var(--s-5));
+    }
+  }
+
+  /* No JS / no WebGL: everything visible, statically composed. */
+  .no-js .movement,
+  .no-webgl .movement {
+    height: 160vh;
+  }
+  .no-js .movement:last-child,
+  .no-webgl .movement:last-child {
+    height: 160vh;
+  }
+  .no-js .scroll-cue__rule,
+  .no-webgl .scroll-cue__rule {
+    animation: none;
+    transform: none;
+  }
+}

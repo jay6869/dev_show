@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Rest — Hexachord</title>
+    <meta name="description" content="A bar of silence where a page should be." />
+    <meta name="theme-color" content="#08090b" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/anybody-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      document.documentElement.className = 'js';
+    </script>
+  </head>
+  <body class="rest">
+    <canvas class="gl" id="gl" aria-hidden="true" tabindex="-1"></canvas>
+    <div class="fallback-art" aria-hidden="true"></div>
+    <main class="rest__stage">
+      <p class="rest__index u-mono"><span class="u-accent">404.</span> <span class="u-dim">Tacet</span></p>
+      <h1 class="rest__title">Rest</h1>
+      <p class="rest__line">
+        A bar of silence where a page should be. Press and hold to gather the pieces, or go home.
+      </p>
+      <a class="rest__home gate__btn gate__btn--primary" href="/">Return to the first movement</a>
+    </main>
+    <script type="module" src="/src/notfound.ts"></script>
+  </body>
+</html>

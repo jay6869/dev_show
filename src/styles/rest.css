@@ -1,0 +1,32 @@
+@layer layout {
+  .rest__stage {
+    position: relative;
+    z-index: var(--z-content);
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    align-content: end;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-7) var(--margin);
+    pointer-events: none;
+  }
+  .rest__title {
+    font-size: var(--t-3xl);
+    font-weight: 250;
+    font-stretch: 125%;
+  }
+  .rest__line {
+    max-width: 36ch;
+    color: var(--c-dim);
+    font-size: var(--t-md);
+    line-height: var(--lh-snug);
+  }
+  .rest__home {
+    margin-top: var(--s-4);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+  }
+}
